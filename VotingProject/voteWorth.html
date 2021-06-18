@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<!--By Avery Economou and Mariah Rible-->
+	<!--Created 3/10/2020-->
+	<title>What Is Your Vote Worth?</title>
+	<link href="voteWorth.css" rel="stylesheet" />
+	<h1>What is your vote actually worth?</h1>
+	<h2>Find out what your vote is actually worth with the electoral college system in place. This takes into account the population of each state and the number of electoral votes they are alloted.</h2>
+	<h3>Red is the value if everyone in the state voted.</h3>
+	<h4>Blue is factoring in voter turnout.</h4>
+	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+</head>
+
+<body onload="init()">
+	<canvas id="myCanvas" width="500" height="300">Sorry. You need an HTML5 compatible browser to see this.</canvas>
+	<div class="row">
+		<div class="column">
+			<p>Select State:
+				<div class="state">
+					<select id="state", onchange="refresh()">
+					<option value="0">Alabama</option>
+					<option value="1">Alaska</option>
+					<option value="2">Arizona</option>
+					<option value="3">Arkansas</option>
+					<option value="4">California</option>
+					<option value="5">Colorado</option>
+					<option value="6">Connecticut</option>
+					<option value="7">Delaware</option>
+					<option value="8">District of Columbia</option>
+					<option value="9">Florida</option>
+					<option value="10">Georgia</option>
+					<option value="11">Hawaii</option>
+					<option value="12">Idaho</option>
+					<option value="13">Illinois</option>
+					<option value="15">Iowa</option>
+					<option value="16">Kansas</option>
+					<option value="17">Kentucky</option>
+					<option value="18">Louisiana</option>
+					<option value="19">Maine</option>
+					<option value="20">Maryland</option>
+					<option value="21">Massachusetts</option>
+					<option value="22">Michigan</option>
+					<option value="23">Minnesota</option>
+					<option value="24">Mississippi</option>
+					<option value="25">Missouri</option>
+					<option value="26">Montana</option>
+					<option value="27">Nebraska</option>
+					<option value="29">New Hampshire</option>
+					<option value="30">New Jersey</option>
+					<option value="31">New Mexico</option>
+					<option value="32">New York</option>
+					<option value="33">North Carolina</option>
+					<option value="34">North Dakota</option>
+					<option value="35">Ohio</option>
+					<option value="36">Oklahoma</option>
+					<option value="37">Oregon</option>
+					<option value="38">Pennsylvania</option>
+					<option value="39">Rhode Island</option>
+					<option value="40">South Carolina</option>
+					<option value="41">South Dakota</option>
+					<option value="42">Tennessee</option>
+					<option value="43">Texas</option>
+					<option value="44">Utah</option>
+					<option value="45">Vermont</option>
+					<option value="46">Virginia</option>
+					<option value="47">Washington</option>
+					<option value="48">West Virginia</option>
+					<option value="49">Wisconsin</option>
+					<option value="50">Wyoming</option>
+					</select>
+				</div>
+			</p>
+		</div>
+		
+	<div class="column">
+		<script>
+			// EVERY PERSON IS 67 PIXELS WIDE AND 107 PIXELS TALL
+			var image;
+			var myStage;
+			var shape;
+			var allVoteNum = [1.07, 2.42, 0.98, 1.18, 0.84, 1.02, 1.12, 1.92, 2.86, 0.88, 0.95, 1.69, 1.43, 0.90, 0.98, 
+					   1.13, 1.21, 1.06, 1.73, 1.01, 0.99, 0.96, 0.93, 1.08, 1.15, 0.96, 1.74, 1.57, 1.27, 1.75, 
+					   0.91, 1.39, 0.86, 0.90, 2.56, 0.90, 1.07, 1.05, 0.90, 2.18, 1.12, 2.11, 0.99, 0.87, 1.25, 
+					   2.75, 0.93, 1.02, 1.55, 1.01, 3.05];
+		
+			var turnOutNum = [1.88, 3.71, 1.84, 2.28, 1.45, 1.52, 1.75, 3.03, 4.98, 1.39, 1.66, 3.67, 2.36, 1.45, 1.73,
+						  1.65, 2.00, 1.84, 1.68, 2.43, 1.55, 1.47, 1.41, 1.43, 2.07, 1.51, 2.69, 2.53, 2.34, 2.47,
+						  1.43, 2.45, 1.51, 1.47, 4.10, 1.39, 2.01, 1.55, 1.49, 3.71, 2.04, 3.37, 1.85, 1.68, 2.18,
+						  4.23, 1.47, 1.56, 3.10, 1.40, 4.92];
+						
+		
+			function init() {
+				myStage = new createjs.Stage(document.getElementById("myCanvas")); 
+				image = new createjs.Bitmap("people-outlines.png");
+				image2 = new createjs.Bitmap("people-outlines.png");
+				image2.y = image.y + 110;
+				shape = new createjs.Shape();
+				shape2 = new createjs.Shape();
+				shape.graphics.beginFill("red").drawRect(-335, 0, 335, 107); //335 is the max of 5 people, start the x value at the beginning of the first person. 10 pixel offset for space between hands
+				shape2.graphics.beginFill("blue").drawRect(-335, 110, 335, 107);
+				myStage.addChild(shape);
+				myStage.addChild(shape2)
+			
+				myStage.addChild(image);
+				myStage.addChild(image2);
+				createjs.Ticker.setFPS(200);
+				createjs.Ticker.addEventListener("tick", drawNewFrame);
+			}//func init
+		
+			function drawNewFrame() {
+				var x = document.getElementById('state').value;
+					if(shape.x < allVoteNum[x]*64){ //calculate the amount of people. OFFSET 3 PIXELS FOR DISTANCE BETWEEN EACH PERSON
+						shape.x++;
+					}//if
+					if(shape2.x < turnOutNum[x]*64){ //calculate the amount of people. OFFSET 3 PIXELS FOR DISTANCE BETWEEN EACH PERSON
+						shape2.x++;
+					}//if
+				myStage.update();
+			}//func drawNewFrame
+		
+			function refresh() {
+				shape.x = -335;
+				shape2.x = -335;
+			}//func refresh
+	</script>
+	</div>
+	</div>
+	<p>Map of Electors</p>
+	<img src="ecMap.png" alt="Electoral Map College" width="70%" height="70%">
+</body>
+<footer>Created By Avery Economou and Mariah Rible at Southern Oregon University. Click <a href="https://docs.google.com/spreadsheets/d/15qmPas_K9Tug2i3PAsvnehgAKilyRnnyQCa5-hBfj_w/edit?usp=sharing">here</a> for data sources.</footer>
+</html>
+</html>
+</html>

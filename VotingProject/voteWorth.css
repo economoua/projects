@@ -1,0 +1,91 @@
+/* 	CCS File for voteWorth.html 
+	By Avery Economou and Mariah Rible
+*/
+
+html {
+	background-image: url("flag.jpg");
+}
+
+body {
+	width: 60%;
+	background-color: white;
+	margin: auto;
+}
+
+h1 {
+	color: red;
+	text-align: center;
+	font-size: 65px;
+	text-shadow: 2px 2px 3px black;
+}
+
+h2 {
+	font-size: 30px;
+	text-align: center;
+	color: blue;
+	float: left;
+	
+}
+
+h3 {
+	color: red;
+	text-align: center;
+	font-size: 30px;
+}
+
+h4 {
+	font-size: 30px;
+	text-align: center;
+	color: blue;
+}
+
+footer {
+	text-align: center;
+	padding: 10px;
+}
+canvas {
+	float: right;
+}
+
+.column {
+	float: left;
+	padding: 15px;
+}
+
+.left {
+	width: 25%;
+}
+
+.right {
+	width: 75%;
+}
+
+.row:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+p {
+	font-size: 20px;
+	float: left;
+	display: block;
+}
+
+.state {
+	float: left;
+	padding-top: 22px;
+	display: block;
+}
+
+p {
+	float: left;
+	padding: 10px;
+	text-align: center;
+}
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
